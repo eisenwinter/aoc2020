@@ -6,15 +6,15 @@ let read (filePath:string) = seq {
         yield sr.ReadLine ()
 }
 
-type passwordRecord =  {
+type PasswordRecord =  {
         min:int; 
         max:int; 
         mustContain:char; 
         password:string
     }
 
-let regex = new Regex(@"(?<min>[0-9]*)-(?<max>[0-9]*)\s(?<char>[a-z]?):\s(?<pwd>[a-z0-9]*)")
-let toPwdRecord txt : passwordRecord=
+let regex = Regex(@"(?<min>[0-9]*)-(?<max>[0-9]*)\s(?<char>[a-z]?):\s(?<pwd>[a-z0-9]*)")
+let toPwdRecord txt : PasswordRecord=
     let r = regex.Match txt
     {min = (int r.Groups.["min"].Value); max= (int r.Groups.["max"].Value); mustContain = char r.Groups.["char"].Value; password = r.Groups.["pwd"].Value}
 

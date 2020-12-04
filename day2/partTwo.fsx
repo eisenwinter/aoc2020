@@ -6,26 +6,26 @@ let read (filePath:string) = seq {
         yield sr.ReadLine ()
 }
 
-type passwordRecord =  {
-        posOne:int; 
-        posTwo:int; 
-        mustContain:char; 
-        password:string
+type PasswordRecord =  {
+        PosOne:int; 
+        PosTwo:int; 
+        MustContain:char; 
+        Password:string
     }
 
-let regex = new Regex(@"(?<min>[0-9]*)-(?<max>[0-9]*)\s(?<char>[a-z]?):\s(?<pwd>[a-z0-9]*)")
-let toPwdRecord txt : passwordRecord=
+let regex = Regex(@"(?<min>[0-9]*)-(?<max>[0-9]*)\s(?<char>[a-z]?):\s(?<pwd>[a-z0-9]*)")
+let toPwdRecord txt : PasswordRecord=
     let r = regex.Match txt
     {
-        posOne = (int r.Groups.["min"].Value); 
-        posTwo = (int r.Groups.["max"].Value); 
-        mustContain = char r.Groups.["char"].Value; 
-        password = r.Groups.["pwd"].Value
+        PosOne = (int r.Groups.["min"].Value); 
+        PosTwo = (int r.Groups.["max"].Value); 
+        MustContain = char r.Groups.["char"].Value; 
+        Password = r.Groups.["pwd"].Value
     }
 
 
 let validatePassword record =
-     (record.password.[record.posOne-1] = record.mustContain) <> (record.password.[record.posTwo-1] = record.mustContain)
+     (record.Password.[record.PosOne-1] = record.MustContain) <> (record.Password.[record.PosTwo-1] = record.MustContain)
  
 "input.txt"
     |> read
