@@ -34,8 +34,8 @@ let validate' tpl : bool =
         | ("byr", x) when (int x) >= 1920 && (int x) <= 2002 -> true
         | ("iyr", x) when (int x) >= 2010 && (int x) <= 2020 -> true
         | ("eyr", x) when (int x) >= 2020 && (int x) <= 2030 -> true
-        | ("hgt", x) when Regex("([0-9]{2}in|[0-9]{3}cm)").IsMatch(x) -> validHeight x
-        | ("hcl", x) when Regex("#[0-9a-f]{6}").IsMatch(x) -> true
+        | ("hgt", x) when Regex("(^[0-9]{2}in$|^[0-9]{3}cm$)").IsMatch(x) -> validHeight x
+        | ("hcl", x) when Regex("^#[0-9a-f]{6}$").IsMatch(x) -> true
         | ("ecl", "amb") -> true
         | ("ecl", "blu") -> true
         | ("ecl", "brn") -> true
@@ -43,7 +43,7 @@ let validate' tpl : bool =
         | ("ecl", "grn") -> true
         | ("ecl", "hzl") -> true
         | ("ecl", "oth") -> true
-        | ("pid", x) when Regex("[0-9]{9}").IsMatch(x) -> true
+        | ("pid", x) when Regex("^[0-9]{9}$").IsMatch(x) -> true
         | ("cid", _) -> true
         | _ -> false
 
@@ -64,4 +64,4 @@ File.ReadAllText("input.txt")
     |> Seq.filter validate
     |> Seq.filter validateFields
     |> Seq.length
-    |> printfn "%A" //131 correct - why 
+    |> printfn "%A"
