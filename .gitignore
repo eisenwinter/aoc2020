@@ -1,1 +1,6 @@
 /.ionide
+/.fake
+/.vscode
+/cache
+/bin
+/obj
